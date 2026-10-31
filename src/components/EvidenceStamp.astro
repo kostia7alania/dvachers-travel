@@ -1,0 +1,9 @@
+---
+interface Props { office?: string; verifiedAt?: string; compact?: boolean; }
+const { office = 'Palembang', verifiedAt = '2026-10-31', compact = false } = Astro.props;
+const date = new Intl.DateTimeFormat('ru', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(`${verifiedAt}T00:00:00Z`));
+---
+<div class:list={['evidence-stamp', {compact}]}>
+  <span class="evidence-icon" aria-hidden="true">✓</span>
+  <div><strong>Есть проверенный опыт</strong><span>{office}. Источники проверены <time datetime={verifiedAt}>{date}</time>.</span></div>
+</div>

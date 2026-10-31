@@ -1,0 +1,8 @@
+---
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<section class:list={['correction-cta', {compact}]} id="contribute">
+  <div><span class="section-note">Атлас собирается вместе</span><h2>Прошли этот путь?<br />Добавьте свою находку.</h2></div>
+  <div><p>Ссылка на рассказ, новое требование офиса или полезное место. Достаточно даты, контекста и того, что получилось.</p><a class="button button-ink" href="https://github.com/kostia7alania/dvachers-travel/issues/new/choose">Предложить опыт <span aria-hidden="true">↗</span></a><span class="action-hint">Откроется форма GitHub. Личные документы не нужны.</span></div>
+</section>

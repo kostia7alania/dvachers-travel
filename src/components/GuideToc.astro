@@ -1,0 +1,9 @@
+---
+interface Props { headings: { depth: number; slug: string; text: string }[]; mobile?: boolean; }
+const { headings, mobile = false } = Astro.props;
+const Wrapper = mobile ? 'details' : 'div';
+---
+<Wrapper class:list={['guide-toc', {'guide-toc-mobile': mobile, 'guide-toc-desktop': !mobile}]}>
+  {mobile ? <summary>Шаги инструкции <span aria-hidden="true">＋</span></summary> : <p class="toc-title">В этой инструкции</p>}
+  <nav aria-label={mobile ? 'Шаги инструкции на телефоне' : 'Шаги инструкции'}><ol role="list">{headings.filter(h => h.depth === 2).map(h => <li><a href={`#${h.slug}`}>{h.text.replace(/^\d+\.\s*/, '')}</a></li>)}</ol></nav>
+</Wrapper>

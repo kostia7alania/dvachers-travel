@@ -36,7 +36,7 @@ Use genuine documents. Follow the current Main Document label and the responsibl
 
 Check the actual address, postal-code mapping and assigned office together. A correct office does not resolve a wrong district or village. Record an unresolved mapping discrepancy explicitly before the user approves submission.
 
-Verify passport dates in the saved application detail, not just in the editable form or serialized form data. In the observed workflow, a locally corrected issue date was submitted but the created detail still displayed the old date, birthplace and phone. Treat that as an unresolved discrepancy, not a successful HTML fix. Seek the official correction route; do not create a duplicate application blindly.
+Check passport expiry and the saved record. In our Palembang case, the issue-date field was disabled and wrong. An attempted local edit did not persist. The officers said to leave that field and checked the passport's remaining validity; the extension was issued. Do not spend repeated attempts modifying a disabled field or create another application for this already accepted discrepancy.
 
 If the responsible officer has explicitly accepted a disclosed issue-date discrepancy for the current case, record who gave that guidance and whether it is oral or written. Keep the actual and displayed dates distinct, but do not keep treating that acknowledged discrepancy as an automatic blocker or repeatedly ask the owner to raise it again. Verify passport expiry against the current procedure; do not infer a numerical validity threshold from a vague reference to a limit or generalize one office response to other applicants.
 

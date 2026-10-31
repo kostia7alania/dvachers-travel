@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>{title} | DVACHERS Travel</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} | DVACHERS Travel`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="preload" href={`${base}fonts/golos-text.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%232456C4'/%3E%3Cpath d='M10 10h13l8 10-8 10H10V10zm7 6v8h4l3-4-3-4h-4z' fill='%23F5E663'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header wrap">
+      <a class="brand" href={base} aria-label="DVACHERS Travel, главная">
+        <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="currentColor"/><path d="M10 10h13l8 10-8 10H10V10zm7 6v8h4l3-4-3-4h-4z" fill="var(--marker)"/></svg>
+        <span>DVACHERS<span class="brand-sub">Travel</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Основное">
+        <a href={`${base}#instructions`}>Инструкции</a>
+        <a href={`${base}#countries`}>Страны</a>
+        <a href={`${base}#contribute`}>Добавить опыт</a>
+      </nav>
+      <a class="ai-nav" href={`${base}#for-ai`}>Для AI <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div><a class="footer-brand" href={base}>DVACHERS Travel</a><p>Опыт из поездок, который можно<br />проверить, дополнить и взять с собой.</p></div>
+        <div><p class="footer-label">Сообщество</p><a href="https://t.me/dvachers_travel">Telegram-канал</a><a href="https://t.me/dvachers_travel_chat">Обсуждения</a><a href="https://t.me/dvachers_travel_content">Конспекты и ссылки</a></div>
+        <div><p class="footer-label">Открытые знания</p><a href="https://github.com/kostia7alania/dvachers-travel">Исходники и навыки</a><a href="https://github.com/kostia7alania/dvachers-travel/issues/new/choose">Сообщить об изменении</a></div>
+      </div>
+      <div class="wrap footer-bottom"><span>У опыта есть место, дата и автор.</span><a href="https://github.com/kostia7alania/dvachers-travel/blob/main/LICENSE.md">Тексты: CC BY-SA 4.0</a></div>
+    </footer>
+  </body>
+</html>
