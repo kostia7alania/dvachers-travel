@@ -4,7 +4,7 @@ Practical travel guides and independently installable [Agent Skills](https://age
 
 Проверенный тревел-опыт: инструкции для людей и навыки для AI-ассистентов. Начинаем с **продления VOA в Индонезии**. Одна репа, из которой можно установить только нужные навыки.
 
-[Читать с телефона](https://kostia7alania.github.io/dvachers-travel/) · [Гайд в GitHub](skills/indonesia-voa-extension/references/guide.ru.md) · [Предложить исправление](https://github.com/kostia7alania/dvachers-travel/issues/new/choose)
+[Читать с телефона](https://kostia7alania.ru/dvachers-travel/) · [Гайд в GitHub](skills/indonesia-voa-extension/references/guide.ru.md) · [Предложить исправление](https://github.com/kostia7alania/dvachers-travel/issues/new/choose)
 
 <a id="install"></a>
 
