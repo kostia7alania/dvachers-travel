@@ -1,0 +1,4 @@
+interface:
+  display_name: "Indonesia VOA extension"
+  short_description: "Продление VOA: документы, оплата и проверка"
+  default_prompt: "Используй $indonesia-voa-extension, чтобы проверить текущее продление VOA и довести его до подтверждённого результата."

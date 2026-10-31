@@ -1,0 +1,49 @@
+name: Исправление или новый опыт / Correction or field report
+description: Изменение процедуры, источник или личный опыт без документов и идентификаторов.
+title: "[Report] "
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Страна, город и офис / Country, city and office
+      placeholder: Indonesia, Palembang
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Дата события / Date of experience
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Тип сведений / Evidence type
+      options:
+        - Официальный опубликованный источник / Official published source
+        - Мой личный опыт / My own experience
+        - Сообщение, требующее проверки / Unverified report
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Что изменилось и чем закончилось / Change and outcome
+      description: Укажите тип визы или процедуры и существенные условия. Не прикладывайте личные документы.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Публичный источник / Public source
+      description: Прямая ссылка на правило или публичный отчёт. Не вставляйте приватные ссылки на заявку, бронь или оплату.
+  - type: checkboxes
+    id: publication
+    attributes:
+      label: Публикация / Publication
+      options:
+        - label: Личных документов, контактов других людей и идентификаторов здесь нет / No personal documents or private identifiers included
+          required: true
+        - label: Я разрешаю публикацию своего текста по CC BY-SA 4.0 и имею права на него / I have the rights and allow my text under CC BY-SA 4.0
+          required: true

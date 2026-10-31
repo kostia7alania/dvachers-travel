@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.pyc
+_site/
+.jekyll-cache/
+.env
+.env.*
