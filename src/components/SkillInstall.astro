@@ -1,0 +1,77 @@
+---
+import chatStarter from '../../chat-starter.ru.md?raw';
+import installPrompt from '../../universal-install-prompt.ru.md?raw';
+import guideSource from '../../skills/indonesia-voa-extension/references/guide.ru.md?raw';
+import MarkdownPanel from './MarkdownPanel.astro';
+import CopyButton from './CopyButton.astro';
+interface Props { id?: string; }
+const { id = 'for-ai' } = Astro.props;
+const command = 'npx skills add kostia7alania/dvachers-travel --skill indonesia-voa-extension';
+const guideMarkdown = guideSource.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').trim();
+const chatBundle = `${chatStarter.trim()}\n\n---\n\n${guideMarkdown}\n`;
+---
+<section class="skill-install" id={id} data-ai-setup>
+  <div class="skill-heading">
+    <span class="skill-symbol" aria-hidden="true">{`{ }`}</span>
+    <div><h2>Забрать опыт в свой AI</h2><p>На компьютере можно установить навык. В обычном чате достаточно скопировать инструкцию.</p></div>
+  </div>
+
+  <div class="setup-tabs" role="tablist" aria-label="Где использовать инструкцию">
+    <button class="setup-tab" id={`${id}-computer-tab`} type="button" role="tab" aria-controls={`${id}-computer`} aria-selected="true" data-setup-tab="computer">Для компьютера</button>
+    <button class="setup-tab" id={`${id}-chat-tab`} type="button" role="tab" aria-controls={`${id}-chat`} aria-selected="false" tabindex="-1" data-setup-tab="chat">Для чата и телефона</button>
+  </div>
+
+  <div class="setup-panel" id={`${id}-computer`} role="tabpanel" aria-labelledby={`${id}-computer-tab`} data-setup-panel="computer">
+    <div class="setup-panel-heading"><h3>Установить навык продления VOA</h3><p>Если ваш клиент поддерживает Agent Skills, выполните эту команду в терминале.</p></div>
+    <div data-copy-group>
+      <div class="command-box"><code id={`${id}-command`}>{command}</code><CopyButton target={`${id}-command`} label="Скопировать команду установки навыка" /></div>
+      <p class="copy-status" role="status" data-copy-status></p>
+    </div>
+    <div class="skill-footnote"><p>Нужен Node.js 22.20+. Навык устанавливается в выбранный клиент; доступ к браузеру, почте и напоминаниям зависит от его возможностей.</p><a href="https://github.com/kostia7alania/dvachers-travel#install">Выбор навыков и совместимость <span aria-hidden="true">↗</span></a></div>
+    <details class="agent-install-prompt">
+      <summary>Попросить AI-агента установить навык <span aria-hidden="true">＋</span></summary>
+      <p>Скопируйте запрос целиком в своего агента. Он должен проверить доступные возможности и согласовать действия.</p>
+      <MarkdownPanel id={`${id}-installer-prompt`} title="Запрос для установки" text={installPrompt} hint="Полный текст можно прокрутить, выделить или скопировать кнопкой справа." />
+    </details>
+  </div>
+
+  <div class="setup-panel" id={`${id}-chat`} role="tabpanel" aria-labelledby={`${id}-chat-tab`} data-setup-panel="chat" hidden>
+    <div class="setup-panel-heading"><h3>Начать с обычного чата</h3><p>Скопируйте запрос вместе с полным гайдом, вставьте в ChatGPT или другой чат и добавьте свои обстоятельства.</p></div>
+    <MarkdownPanel id={`${id}-chat-prompt`} title="Запрос и полный гайд" text={chatBundle} hint="Это текст для текущего разговора. Он сам не устанавливает постоянный навык и не подключает инструменты." />
+    <p class="setup-limit">Если чат не умеет открывать сайт, работать с файлами или ставить напоминания, соответствующие действия вы выполните сами. Отправка заявки и оплата требуют вашего согласия.</p>
+  </div>
+  <noscript><p class="setup-limit">Для переключения и копирования нужен JavaScript. Можно открыть <a href="https://github.com/kostia7alania/dvachers-travel/blob/main/chat-starter.ru.md">полный текст для обычного чата</a> или <a href="https://github.com/kostia7alania/dvachers-travel/blob/main/universal-install-prompt.ru.md">запрос для установки</a> в GitHub.</p></noscript>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ai-setup]').forEach((setup) => {
+    const tabs = Array.from(setup.querySelectorAll<HTMLButtonElement>('[data-setup-tab]'));
+    const panels = Array.from(setup.querySelectorAll<HTMLElement>('[data-setup-panel]'));
+    const select = (tab: HTMLButtonElement, reflectUrl = true) => {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+      panels.forEach((panel) => {panel.hidden = panel.dataset.setupPanel !== tab.dataset.setupTab;});
+      if (reflectUrl) window.history.replaceState(null, '', `#${tab.getAttribute('aria-controls')}`);
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (event) => {
+        let target: HTMLButtonElement | undefined;
+        if (event.key === 'ArrowRight') target = tabs[(index + 1) % tabs.length];
+        if (event.key === 'ArrowLeft') target = tabs[(index - 1 + tabs.length) % tabs.length];
+        if (event.key === 'Home') target = tabs[0];
+        if (event.key === 'End') target = tabs[tabs.length - 1];
+        if (!target) return;
+        event.preventDefault();
+        select(target);
+        target.focus();
+      });
+    });
+    const hash = window.location.hash.slice(1);
+    const linked = tabs.find(tab => tab.getAttribute('aria-controls') === hash);
+    const initial = linked ?? (window.matchMedia('(max-width:760px)').matches ? tabs[1] : tabs[0]);
+    if (initial) select(initial, false);
+  });
+</script>

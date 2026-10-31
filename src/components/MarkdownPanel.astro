@@ -1,0 +1,26 @@
+---
+import CopyButton from './CopyButton.astro';
+interface Props {
+  id: string;
+  title: string;
+  text: string;
+  hint?: string;
+}
+const { id, title, text, hint } = Astro.props;
+---
+<div class="markdown-panel" data-copy-group>
+  <div class="markdown-toolbar">
+    <div><label for={id}>{title}</label><span>Markdown</span></div>
+    <CopyButton target={id} label={`Скопировать ${title.toLocaleLowerCase('ru')}`} />
+  </div>
+  {hint && <p class="markdown-hint" id={`${id}-hint`}>{hint}</p>}
+  <textarea
+    class="markdown-source"
+    id={id}
+    readonly
+    rows="14"
+    spellcheck="false"
+    aria-describedby={hint ? `${id}-hint` : undefined}
+  >{text}</textarea>
+  <p class="copy-status" role="status" data-copy-status></p>
+</div>

@@ -1,0 +1,8 @@
+---
+interface Props { compact?: boolean; links?: string[]; }
+const { compact = false, links = [] } = Astro.props;
+const stages = ['Найти ITK', 'Документы', 'Оплата', 'Офис', 'Новый e-ITK'];
+---
+<ol class:list={['process-route', {compact}]} role="list" aria-label="Пять стадий продления">
+  {stages.map((stage, index) => <li>{links[index] ? <a href={links[index]}><span class="route-dot" aria-hidden="true">{index + 1}</span><span>{stage}</span></a> : <><span class="route-dot" aria-hidden="true">{index + 1}</span><span>{stage}</span></>}</li>)}
+</ol>

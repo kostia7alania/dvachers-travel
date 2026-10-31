@@ -1,0 +1,51 @@
+---
+interface Props {
+  target: string;
+  label: string;
+}
+const { target, label } = Astro.props;
+---
+<button
+  class="copy-button"
+  type="button"
+  data-copy-source={target}
+  aria-label={label}
+  title={label}
+>
+  <svg class="copy-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+    <rect x="8" y="8" width="12" height="13" rx="2" />
+    <path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+  </svg>
+  <svg class="copy-check" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path d="m5 12 4 4L19 6" />
+  </svg>
+</button>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-source]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const source = document.getElementById(button.dataset.copySource ?? '');
+      const status = button.closest('[data-copy-group]')?.querySelector<HTMLElement>('[data-copy-status]');
+      if (!source) return;
+
+      const text = source instanceof HTMLTextAreaElement ? source.value : source.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        button.dataset.copied = 'true';
+        if (status) {
+          status.dataset.state = 'success';
+          status.textContent = 'Скопировано.';
+        }
+      } catch {
+        delete button.dataset.copied;
+        if (source instanceof HTMLTextAreaElement) {
+          source.focus();
+          source.select();
+        }
+        if (status) {
+          status.dataset.state = 'error';
+          status.textContent = 'Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.';
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,61 @@
+---
+import { getEntry, render } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import EvidenceStamp from '../components/EvidenceStamp.astro';
+import ProcessRoute from '../components/ProcessRoute.astro';
+import SkillInstall from '../components/SkillInstall.astro';
+import CorrectionCTA from '../components/CorrectionCTA.astro';
+const guide = await getEntry('guides', 'indonesia-voa-extension');
+if (!guide) throw new Error('The published Indonesia VOA guide is missing.');
+const { headings } = await render(guide);
+const base = import.meta.env.BASE_URL;
+const guideUrl = `${base}indonesia/voa-extension/`;
+const checkedLabel = new Intl.DateTimeFormat('ru', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(`${guide.data.verifiedAt}T00:00:00Z`));
+const step = (prefix: string) => `${guideUrl}#${headings.find(h => h.depth === 2 && h.text.startsWith(prefix))?.slug ?? ''}`;
+const findings = [
+ {title:'GoPay вместо кассы', text:'Как оплатить SIMPONI и что помогло, когда QR не распознавался.', href:step('6.'), icon:'Rp'},
+ {title:'Один PDF для офиса', text:'Где найти старый ITK и как дослать документы в текущую заявку.', href:step('8.'), icon:'PDF'},
+ {title:'Билет с возвратом', text:'Где искать, что исключено из возврата и когда отправить запрос.', href:step('10.'), icon:'↗'},
+];
+---
+<SiteLayout title="Опыт путешественников, который пригодится на месте" description="Практические инструкции, места и истории сообщества DVACHERS Travel. Начинаем с проверенного продления VOA в Индонезии.">
+  <div class="wrap">
+    <section class="home-hero">
+      <div class="hero-intro"><span class="hero-tag"><span aria-hidden="true">✳</span> Опыт путешественников</span><h1>Разобраться<br />на месте.</h1><p class="hero-lead">Как продлить визу, найти своё место и не потерять полезное среди тысячи сообщений.</p><div class="mode-links"><a class="mode-active" href="#instructions">Решить задачу</a><a href="#atlas">Исследовать атлас <span aria-hidden="true">↓</span></a></div><p class="intro-small">Собираем личный опыт, проверяем источники,<br class="desktop-break" /> сохраняем то, что пригодится следующему.</p></div>
+      <div class="featured-guide"><div class="country-tab"><span class="country-flag" aria-hidden="true"><i></i><i></i></span> Индонезия</div><div class="featured-top"><span>Инструкция из поездки</span><span class="field-mark" aria-hidden="true">ID / VOA</span></div><h2>Продлить VOA.<br />Без лишнего круга.</h2><p>Документы, eVisa, оплата, визит в офис и проверка нового разрешения.</p><ProcessRoute compact /><a class="button button-white" href={guideUrl}>Открыть инструкцию <span aria-hidden="true">↗</span></a><div class="featured-proof"><span aria-hidden="true">✓</span><div>Проверено в {guide.data.office}<span>Правила и источники: {checkedLabel}</span></div></div></div>
+    </section>
+    <section class="findings-section" aria-labelledby="findings-title"><div class="section-heading"><h2 id="findings-title">Что удалось выяснить</h2><p>Находки из одного настоящего продления.</p></div><div class="findings-grid">{findings.map(item => <a class="finding" href={item.href}><span class="finding-icon" aria-hidden="true">{item.icon}</span><h3>{item.title}</h3><p>{item.text}</p><span class="finding-link">Разобраться <span aria-hidden="true">↗</span></span></a>)}</div></section>
+    <section class="catalog-section" id="instructions" aria-labelledby="catalog-title"><div class="section-heading"><div><span class="section-note">С собой в поездку</span><h2 id="catalog-title">Инструкции</h2></div><p>Сначала применимость.<br />Потом конкретные шаги.</p></div><form class="guide-search" role="search" action={`${base}#instructions`} data-guide-search><label for="guide-query">Что нужно сделать?</label><div class="search-line"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="guide-query" name="q" type="search" autocomplete="off" placeholder="Например, виза или GoPay" /><button type="submit">Найти</button></div></form><div class="catalog-meta"><span class="country-pill">Индонезия</span><span>Пока одна проверенная инструкция</span></div><article class="guide-result" data-guide-result data-search={`${guide.data.title} ${guide.data.description} ${guide.body ?? ''} виза визу visa indonesia индонезия бали bali суматра палембанг palembang voa evisa продление пребывание gopay гопей qris simponi qr кр-код документы билет возврат`.toLocaleLowerCase('ru')}><div class="result-country" aria-hidden="true">ID<span>Индонезия</span></div><div class="result-content"><span class="result-kind">Визы и документы</span><h3><a href={guideUrl}>{guide.data.title}</a></h3><p>От текущего ITK до нового e-ITK. С оплатой QRIS, исправлением документов и условиями возвратного билета.</p><EvidenceStamp compact office={guide.data.office} verifiedAt={guide.data.verifiedAt} /></div><a class="result-open" href={guideUrl} aria-label="Читать инструкцию по продлению VOA">Читать <span aria-hidden="true">↗</span></a></article><div class="search-empty" hidden data-search-empty><h3>Такой инструкции пока нет</h3><p>Попробуйте другой запрос или предложите опыт сообществу.</p><button class="text-button" type="button" data-search-reset>Сбросить поиск</button></div><p class="search-status visually-hidden" role="status" data-search-status></p></section>
+    <section class="atlas-section" id="atlas" aria-labelledby="atlas-title"><div class="atlas-heading" id="countries"><span class="section-note">Дальше по стране</span><h2 id="atlas-title">У каждой поездки<br />есть продолжение.</h2><p>Места, к которым хочется вернуться. Истории, которые объясняют страну. И люди, чей опыт помогает.</p><a class="text-link" href="https://t.me/dvachers_travel">Пока читаем в Telegram <span aria-hidden="true">↗</span></a></div><div class="atlas-formats"><div class="atlas-format"><span class="format-symbol" aria-hidden="true">⌖</span><div><h3>Места</h3><p>Кафе, рынки, тропы и небольшие открытия. С координатами и датой посещения.</p></div><span class="preparation-note">Готовим подборки</span></div><div class="atlas-format"><span class="format-symbol" aria-hidden="true">≋</span><div><h3>Истории</h3><p>Личный опыт, автор и оригинал. Одна история может жить в нескольких подборках.</p></div><span class="preparation-note">Разбираем источники</span></div><div class="atlas-format"><span class="format-symbol" aria-hidden="true">⊞</span><div><h3>Страны и интересы</h3><p>Выбрать Индонезию, веганскую еду или дурианы и собрать своё путешествие.</p></div><span class="preparation-note">По мере наполнения</span></div></div></section>
+    <section class="field-note"><div class="field-note-title"><span aria-hidden="true">↳</span><h2>От визита<br />до нового e-ITK.</h2></div><div class="field-timeline"><div><time datetime="2026-10-26">26 октября</time><strong>Визит в офис<br />и общий PDF</strong></div><span class="timeline-line" aria-hidden="true"></span><div><time datetime="2026-10-30">30 октября</time><strong>Новый e-ITK<br />до 24 ноября</strong></div></div><p>Это результат одного дела в Palembang. Требования вашего офиса и текущие правила нужно проверить отдельно.</p></section>
+    <CorrectionCTA />
+    <SkillInstall />
+  </div>
+</SiteLayout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-guide-search]');
+  const input = form?.querySelector<HTMLInputElement>('input[name="q"]');
+  const result = document.querySelector<HTMLElement>('[data-guide-result]');
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  const reset = document.querySelector<HTMLButtonElement>('[data-search-reset]');
+  if (form && input && result && empty) {
+    const apply = () => {
+      const query = input.value.trim().toLocaleLowerCase('ru');
+      const words = query.split(/\s+/).filter(Boolean);
+      const matches = words.every(word => (result.dataset.search ?? '').includes(word));
+      result.hidden = !matches;
+      empty.hidden = matches;
+      if (status) status.textContent = matches ? 'Найдена одна инструкция.' : 'Инструкции не найдены.';
+      const url = new URL(window.location.href);
+      if (query) url.searchParams.set('q', input.value.trim()); else url.searchParams.delete('q');
+      window.history.replaceState(null, '', url);
+    };
+    input.value = new URL(window.location.href).searchParams.get('q') ?? '';
+    if (input.value) apply();
+    form.addEventListener('submit', event => {event.preventDefault(); apply();});
+    let timer: ReturnType<typeof setTimeout>;
+    input.addEventListener('input', () => {clearTimeout(timer); timer = setTimeout(apply, 250);});
+    reset?.addEventListener('click', () => {input.value = ''; apply(); input.focus();});
+  }
+</script>

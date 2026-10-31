@@ -27,7 +27,7 @@ def check():
             errors.append(f"Missing or long description: {skill.relative_to(ROOT)}")
 
     for document in ROOT.rglob("*.md"):
-        if ".git" in document.parts or "_site" in document.parts:
+        if any(part in {".git", "_site", "node_modules", "dist", ".astro", ".jekyll-cache"} for part in document.parts):
             continue
         text = document.read_text()
         if re.search(r"/(?:Users|home)/[^\s]+|(?:[A-Za-z]:\\Users\\)", text):

@@ -1,0 +1,27 @@
+---
+import { getEntry, render } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import EvidenceStamp from '../../../components/EvidenceStamp.astro';
+import ProcessRoute from '../../../components/ProcessRoute.astro';
+import GuideToc from '../../../components/GuideToc.astro';
+import SkillInstall from '../../../components/SkillInstall.astro';
+import CorrectionCTA from '../../../components/CorrectionCTA.astro';
+const guide = await getEntry('guides', 'indonesia-voa-extension');
+if (!guide) throw new Error('The published Indonesia VOA guide is missing.');
+const { Content, headings } = await render(guide);
+const base = import.meta.env.BASE_URL;
+const step = (prefix: string) => `#${headings.find(h => h.depth === 2 && h.text.startsWith(prefix))?.slug ?? ''}`;
+const stageLinks = ['3.', '2.', '5.', '7.', '9.'].map(step);
+---
+<SiteLayout title={guide.data.title} description={guide.data.description}>
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href={base}>Атлас</a><span aria-hidden="true">/</span><a href={`${base}#instructions`}>Индонезия</a><span aria-hidden="true">/</span><span>Визы и документы</span></nav>
+    <header class="guide-hero"><div><span class="country-pill">Индонезия</span><h1>{guide.data.title}</h1><p class="guide-deck">Одна инструкция от текущего разрешения<br class="desktop-break" /> до нового e-ITK.</p><EvidenceStamp office={guide.data.office} verifiedAt={guide.data.verifiedAt} /></div><aside class="guide-scope"><p class="scope-label">Проверьте применимость</p><strong>Для продления<br />действующей VOA</strong><p>Наш практический кейс: Palembang, октябрь 2026. Условия Бали и других офисов проверяйте отдельно.</p><a href={step('1.')}>Сначала сроки и условия <span aria-hidden="true">↓</span></a></aside></header>
+    <div class="guide-route"><p>Путь инструкции</p><ProcessRoute links={stageLinks} /></div>
+    <GuideToc headings={headings} mobile />
+    <div class="guide-layout"><aside class="guide-sidebar"><GuideToc headings={headings} /><div class="sidebar-source"><span class="section-note">Опыт, а не кабинет</span><p>Этапы показывают порядок действий. Оплату и выдачу проверяйте по своей заявке.</p></div></aside><article class="guide-article"><Content /></article></div>
+    <div class="guide-afterword"><div><span class="section-note">Границы этого опыта</span><h2>Один офис.<br />Конкретное дело.</h2></div><p>Сохранённый гайд не заменяет проверку действующих требований. Если правило изменилось или ваш офис запросил другое, помогите уточнить инструкцию.</p></div>
+    <CorrectionCTA compact />
+    <SkillInstall />
+  </div>
+</SiteLayout>

@@ -5,3 +5,6 @@ _site/
 .jekyll-cache/
 .env
 .env.*
+node_modules/
+dist/
+.astro/

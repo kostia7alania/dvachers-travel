@@ -11,4 +11,6 @@ You may share and adapt this material, including commercially, subject to attrib
 
 Python scripts, workflow configuration and site layout/styles are licensed separately under [MIT](LICENSE-CODE).
 
+The unmodified Golos Text font is redistributed under its own [SIL Open Font License](public/fonts/OFL.txt). Its source is the [Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/golostext).
+
 Linked third-party articles, law texts, maps, images, services and trademarks retain their own rights and terms. The repository does not relicense third-party material or grant permission to redistribute personal data. Contributions must be your own or carry compatible permission and attribution.
