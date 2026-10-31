@@ -8,7 +8,7 @@ license: CC-BY-SA-4.0
 
 The observed Palembang case reached verified e-ITK issuance on 30 October 2026 after an office visit and document correction on 26 October. Payment, an office visit, a saved correction and actual permit issuance remain separate stages. Read the dated evidence before applying this case to another traveler.
 
-For a traveler-facing Russian walkthrough or phone-readable instructions, use [the human guide](references/guide.ru.md). It is the same source used by the public website. The guide's Jekyll frontmatter only controls website presentation.
+For a traveler-facing Russian walkthrough or phone-readable instructions, use [the human guide](references/guide.ru.md). It is the same source used by the public website. Its frontmatter carries the shared page metadata.
 
 Read [the workflow evidence and official references](references/workflow-evidence.md) when handling guest-session recovery, passport-data discrepancies, accommodation proof, refundable tickets, an unreadable payment QR, or post-visit document corrections through `UPDATE PENDING`.
 
