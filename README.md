@@ -1,8 +1,8 @@
 # DVACHERS Travel
 
-Practical travel guides and independently installable [Agent Skills](https://agentskills.io/). First release: **Indonesia Visa on Arrival (VOA) extension**, eVisa, SIMPONI, GoPay QRIS and refundable onward tickets, with a verified Palembang case.
+Practical travel guides and independently installable [Agent Skills](https://agentskills.io/). Available skills: **Indonesia VOA extension** (verified Palembang case) and **Malaysia MDAC** (official rules checked 2026-11-24; no verified end-to-end automatic submission).
 
-Проверенный тревел-опыт: инструкции для людей и навыки для AI-ассистентов. Начинаем с **продления VOA в Индонезии**. Одна репа, из которой можно установить только нужные навыки.
+Проверенный тревел-опыт: инструкции для людей и навыки для AI-ассистентов. Уже есть **продление VOA в Индонезии** и **MDAC для Малайзии**. Одна репа, из которой можно установить только нужные навыки.
 
 [Читать с телефона](https://kostia7alania.ru/dvachers-travel/) · [Гайд в GitHub](skills/indonesia-voa-extension/references/guide.ru.md) · [Предложить исправление](https://github.com/kostia7alania/dvachers-travel/issues/new/choose)
 
@@ -28,13 +28,19 @@ npx skills add kostia7alania/dvachers-travel --list
 npx skills add kostia7alania/dvachers-travel --skill indonesia-voa-extension
 ```
 
+Для Malaysia MDAC (автоматически предложит заполнить при поездке в Малайзию):
+
+```sh
+npx skills add kostia7alania/dvachers-travel --skill malaysia-mdac
+```
+
 Для Codex во всех проектах:
 
 ```sh
 npx skills add kostia7alania/dvachers-travel --skill indonesia-voa-extension -a codex -g
 ```
 
-По умолчанию установка относится к текущему проекту; `-g` устанавливает в каталог пользователя. CLI требует Node.js 22.20 или новее. Когда навыков станет больше, выбирайте их в меню или повторяйте `--skill NAME`. Сейчас опубликован один завершённый навык; пустых навыков для будущих стран нет.
+По умолчанию установка относится к текущему проекту; `-g` устанавливает в каталог пользователя. CLI требует Node.js 22.20 или новее. Когда навыков станет больше, выбирайте их в меню или повторяйте `--skill NAME`. Сейчас опубликованы два самостоятельных навыка; пустых навыков для будущих стран нет.
 
 Команды и поддерживаемые клиенты: [Vercel Skills](https://github.com/vercel-labs/skills). Формат навыка не добавляет браузер, почту, календарь или право действовать от вашего имени. Codex использовался в исходном кейсе; работа во всех перечисленных сторонним установщиком клиентах здесь не подтверждена.
 
@@ -43,6 +49,7 @@ npx skills add kostia7alania/dvachers-travel --skill indonesia-voa-extension -a 
 | Навык | Что помогает сделать | Проверенный опыт |
 | --- | --- | --- |
 | [indonesia-voa-extension](skills/indonesia-voa-extension/SKILL.md) | Найти текущий ITK, подготовить документы, проверить офис и оплату, пройти исправление `UPDATE PENDING`, подтвердить новый e-ITK и настроить напоминание об отмене билета | Palembang, октябрь 2026 |
+| [malaysia-mdac](skills/malaysia-mdac/SKILL.md) | Предложить и помочь заполнить официальную MDAC при планируемом въезде; проверить исключения, сроки и подтверждение | Официальные источники 2026-11-24; автоматическая подача ещё не проверена |
 
 **Indonesia / Bali visa extension:** общая точка входа eVisa одна, но требования конкретного офиса нужно проверять. Наш подтверждённый кейс относится к Palembang. Он не доказывает требования всех офисов Бали, включая Ngurah Rai.
 
@@ -64,6 +71,8 @@ npx skills add kostia7alania/dvachers-travel --skill indonesia-voa-extension -a 
 Прошли процедуру или нашли изменение? [Создайте предложение](https://github.com/kostia7alania/dvachers-travel/issues/new/choose): страна, офис, дата, что изменилось, результат и публичный источник. Без номера паспорта, брони, биллинга и личных документов.
 
 Исправления проходят проверку. Официальное правило, личный опыт и непроверенное сообщение сохраняются как разные типы сведений. [Правила вклада](CONTRIBUTING.md).
+
+Навык срабатывает проактивно только у агента, который его установил и загрузил. Сам по себе GitHub не позволяет управлять чужими агентами или подавать заявления.
 
 Новые процедуры будут отдельными навыками в этой репе. Существующие подборки Maps и Telegram-истории готовятся к разбору. Проверенный каталог мест в этой репе пока не выпущен.
 

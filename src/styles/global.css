@@ -619,6 +619,7 @@ h3[id] {
   background: var(--ink);
   border-radius: 50%;
 }
+.guide-result[hidden] { display: none; }
 .guide-result {
   display: grid;
   grid-template-columns: 120px 1fr auto;

@@ -22,10 +22,14 @@ const chatBundle = `${chatStarter.trim()}\n\n---\n\n${guideMarkdown}\n`;
   </div>
 
   <div class="setup-panel" id={`${id}-computer`} role="tabpanel" aria-labelledby={`${id}-computer-tab`} data-setup-panel="computer">
-    <div class="setup-panel-heading"><h3>Установить навык продления VOA</h3><p>Если ваш клиент поддерживает Agent Skills, выполните эту команду в терминале.</p></div>
+    <div class="setup-panel-heading"><h3>Установить VOA или MDAC</h3><p>Выберите нужный навык для своего AI-клиента. Установка одного не требует установки другого.</p></div>
     <div data-copy-group>
       <div class="command-box"><code id={`${id}-command`}>{command}</code><CopyButton target={`${id}-command`} label="Скопировать команду установки навыка" /></div>
       <p class="copy-status" role="status" data-copy-status></p>
+    </div>
+    <div data-copy-group>
+      <p>Malaysia MDAC: агент предложит заполнение перед въездом</p>
+      <div class="command-box"><code id={`${id}-mdac-command`}>npx skills add kostia7alania/dvachers-travel --skill malaysia-mdac</code><CopyButton target={`${id}-mdac-command`} label="Скопировать команду установки MDAC" /></div>
     </div>
     <div class="skill-footnote"><p>Нужен Node.js 22.20+. Навык устанавливается в выбранный клиент; доступ к браузеру, почте и напоминаниям зависит от его возможностей.</p><a href="https://github.com/kostia7alania/dvachers-travel#install">Выбор навыков и совместимость <span aria-hidden="true">↗</span></a></div>
     <details class="agent-install-prompt">
@@ -36,7 +40,7 @@ const chatBundle = `${chatStarter.trim()}\n\n---\n\n${guideMarkdown}\n`;
   </div>
 
   <div class="setup-panel" id={`${id}-chat`} role="tabpanel" aria-labelledby={`${id}-chat-tab`} data-setup-panel="chat" hidden>
-    <div class="setup-panel-heading"><h3>Начать с обычного чата</h3><p>Скопируйте запрос вместе с полным гайдом, вставьте в ChatGPT или другой чат и добавьте свои обстоятельства.</p></div>
+    <div class="setup-panel-heading"><h3>Начать с обычного чата: VOA</h3><p>Здесь копируется инструкция по продлению VOA. По Малайзии откройте <a href="https://kostia7alania.ru/dvachers-travel/malaysia/mdac/">гайд MDAC</a> и инструкцию установки навыка.</p></div>
     <MarkdownPanel id={`${id}-chat-prompt`} title="Запрос и полный гайд" text={chatBundle} hint="Это текст для текущего разговора. Он сам не устанавливает постоянный навык и не подключает инструменты." />
     <p class="setup-limit">Если чат не умеет открывать сайт, работать с файлами или ставить напоминания, соответствующие действия вы выполните сами. Отправка заявки и оплата требуют вашего согласия.</p>
   </div>

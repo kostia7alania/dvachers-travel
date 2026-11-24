@@ -1,0 +1,4 @@
+interface:
+  display_name: "Malaysia MDAC"
+  short_description: "Предложить и заполнить MDAC перед въездом"
+  default_prompt: "Используй $malaysia-mdac: проверь, нужна ли мне MDAC для въезда в Малайзию, и помоги заполнить её на официальном сайте, не выдумывая данные."

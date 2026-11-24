@@ -1,0 +1,23 @@
+---
+import { getEntry, render } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import GuideToc from '../../../components/GuideToc.astro';
+import CorrectionCTA from '../../../components/CorrectionCTA.astro';
+
+const guide = await getEntry('guides', 'malaysia-mdac');
+if (!guide) throw new Error('The published Malaysia MDAC guide is missing.');
+const { Content, headings } = await render(guide);
+const base = import.meta.env.BASE_URL;
+---
+<SiteLayout title={guide.data.title} description={guide.data.description}>
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href={base}>Атлас</a><span aria-hidden="true">/</span><a href={`${base}#instructions`}>Малайзия</a><span aria-hidden="true">/</span><span>Документы перед въездом</span></nav>
+    <header class="guide-hero">
+      <div><span class="country-pill">Малайзия</span><h1>{guide.data.title}</h1><p class="guide-deck">Проверь применимость, подготовь данные и заполни официальную форму.</p><p>Источники проверены 2026-11-24. Успешная автоматическая подача не подтверждена.</p></div>
+      <aside class="guide-scope"><p class="scope-label">Начни с применимости</p><strong>До въезда<br />в Малайзию</strong><p>Обычно в пределах трёх дней перед прибытием. Существуют исключения; проверяй официальные правила.</p><a href="#1-проверь-необходимость-mdac-ещё-при-выборе-билета">Проверить условия <span aria-hidden="true">↓</span></a></aside>
+    </header>
+    <GuideToc headings={headings} mobile />
+    <div class="guide-layout"><aside class="guide-sidebar"><GuideToc headings={headings} /><div class="sidebar-source"><span class="section-note">Государственная анкета</span><p>Агент предлагает помощь, но подача и подтверждение проверяются отдельно. Не загружайте личные документы на GitHub.</p></div></aside><article class="guide-article"><Content /><p><strong>Agent Skill:</strong> <a href="https://github.com/kostia7alania/dvachers-travel/tree/main/skills/malaysia-mdac">malaysia-mdac</a></p><pre><code>npx skills add kostia7alania/dvachers-travel --skill malaysia-mdac</code></pre></article></div>
+    <CorrectionCTA compact />
+  </div>
+</SiteLayout>
